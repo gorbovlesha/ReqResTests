@@ -34,6 +34,20 @@ public class UserTests {
         Assertions.assertTrue(users.stream().allMatch(x -> x.getEmail().endsWith("@reqres.in")));
 
     }
+
+    @Test
+    public void singleUserNotFound() {
+        Specifications.installSpecification(Specifications.requestSpecification(), Specifications.fail404ResponseSpecification());
+
+        Response response = given()
+                .when()
+                .get("/api/users/23")
+                .then()
+                .log().all()
+                .statusCode(404)
+                .extract().response();
+    }
+
     @Test
     public void returnSingleUser() {
         Specifications.installSpecification(Specifications.requestSpecification(), Specifications.successResponseSpecification());
@@ -45,14 +59,4 @@ public class UserTests {
                 .extract().body().jsonPath().getObject("data", UserData.class);
     }
 
-    @Test
-    public void singleUserNotFound() {
-        Specifications.installSpecification(Specifications.requestSpecification(), Specifications.failResponseSpecification());
-
-        Response response = given()
-                .when()
-                .get("/api/users/23")
-                .then().log().all()
-                .extract().response();
-    }
 }

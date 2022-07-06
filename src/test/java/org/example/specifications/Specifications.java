@@ -18,15 +18,19 @@ public class Specifications {
 
     public static ResponseSpecification successResponseSpecification() {
         return new ResponseSpecBuilder()
-                .expectStatusCode(201)
                 .expectStatusCode(200)
                 .build();
     }
 
-    public static ResponseSpecification failResponseSpecification() {
+    public static ResponseSpecification fail400ResponseSpecification() {
+        return new ResponseSpecBuilder()
+                .expectStatusCode(400)
+                .build();
+    }
+
+    public static ResponseSpecification fail404ResponseSpecification() {
         return new ResponseSpecBuilder()
                 .expectStatusCode(404)
-                .expectStatusCode(400)
                 .build();
     }
 

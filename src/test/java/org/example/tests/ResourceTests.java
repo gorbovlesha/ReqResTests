@@ -35,7 +35,7 @@ public class ResourceTests {
 
     @Test
     public void registerWithoutPassword() {
-        Specifications.installSpecification(Specifications.requestSpecification(), Specifications.failResponseSpecification());
+        Specifications.installSpecification(Specifications.requestSpecification(), Specifications.fail400ResponseSpecification());
 
         Response response = given()
                 .body("{\n\"email\": \"sydney@fife\"\n}")
@@ -62,13 +62,15 @@ public class ResourceTests {
 
     @Test
     public void singleResourceNotFound() {
-        Specifications.installSpecification(Specifications.requestSpecification(), Specifications.failResponseSpecification());
+        Specifications.installSpecification(Specifications.requestSpecification(), Specifications.fail404ResponseSpecification());
 
         Response response = given()
                 .when()
-                .get("/api/unknown/23")
-                .then().log().all()
-                .extract().response();
+                    .get("/api/unknown/23")
+                .then()
+                    .log().all()
+                    .statusCode(404)
+                    .extract().response();
     }
 
 }
