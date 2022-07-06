@@ -25,9 +25,10 @@ public class UserTests {
 
         List<UserData> users = given()
                 .when()
-                .get("/api/users?page=2")
-                .then().log().all()
-                .extract().body().jsonPath().getList("data", UserData.class);
+                    .get("/api/users?page=2")
+                .then()
+                    .log().all()
+                    .extract().body().jsonPath().getList("data", UserData.class);
 
         users.forEach(x -> Assertions.assertTrue(x.getAvatar().contains(String.valueOf(x.getId()))));
 
@@ -41,11 +42,11 @@ public class UserTests {
 
         Response response = given()
                 .when()
-                .get("/api/users/23")
+                    .get("/api/users/23")
                 .then()
-                .log().all()
-                .statusCode(404)
-                .extract().response();
+                    .log().all()
+                    .statusCode(404)
+                    .extract().response();
     }
 
     @Test

@@ -26,9 +26,10 @@ public class ResourceTests {
 
         List<ResourceData> resources = given()
                 .when()
-                .get("/api/unknown")
-                .then().log().all()
-                .extract().body().jsonPath().getList("data", ResourceData.class);
+                    .get("/api/unknown")
+                .then()
+                    .log().all()
+                    .extract().body().jsonPath().getList("data", ResourceData.class);
 
         resources.forEach(x -> Assertions.assertEquals(1999, (x.getYear() - x.getId())));
     }
@@ -38,11 +39,12 @@ public class ResourceTests {
         Specifications.installSpecification(Specifications.requestSpecification(), Specifications.fail400ResponseSpecification());
 
         Response response = given()
-                .body("{\n\"email\": \"sydney@fife\"\n}")
+                    .body("{\n\"email\": \"sydney@fife\"\n}")
                 .when()
-                .post("/api/register")
-                .then().log().all()
-                .extract().response();
+                    .post("/api/register")
+                .then()
+                    .log().all()
+                    .extract().response();
 
         Assertions.assertEquals("Missing password", response.jsonPath().getString("error"));
     }
@@ -53,9 +55,10 @@ public class ResourceTests {
 
         ResourceData resource = given()
                 .when()
-                .get("/api/unknown/2")
-                .then().log().all()
-                .extract().body().jsonPath().getObject("data", ResourceData.class);
+                    .get("/api/unknown/2")
+                .then()
+                    .log().all()
+                    .extract().body().jsonPath().getObject("data", ResourceData.class);
 
         Assertions.assertEquals(1999, (resource.getYear() - resource.getId()));
     }

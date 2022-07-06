@@ -3,6 +3,10 @@ package org.example.entity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Here we can also use annotation @JsonIgnoreProperties(ignoreUnknown = true)
+ * to ignore some unknown props (or props that we dont need)
+ */
 @Data
 @NoArgsConstructor
 public class UserData {
